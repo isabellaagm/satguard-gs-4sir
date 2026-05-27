@@ -2,7 +2,7 @@
 
 ### Plataforma de Monitoramento e Alerta de Desastres Naturais via Satélite
 
-> Cognitive Computing — Global Solution 2026.1 — 4SIR
+> Cognitive Computing - Global Solution 2026.1 - 4SIR
 
 **RM:** Ana Luiza de Paula Reis - 552363, Isabella Gomes Menezes - 552327, Martin Hilst - 99451
 
@@ -10,7 +10,7 @@
 
 ## O Problema
 
-Todos os anos, enchentes varrem cidades inteiras no litoral de São Paulo. Deslizamentos destroem comunidades na Serra Gaúcha. Secas devastam o Nordeste por meses. O Brasil convive com desastres naturais que matam, deslocam famílias e custam bilhões — e a Defesa Civil muitas vezes só consegue agir **depois** que o desastre já aconteceu.
+Todos os anos, enchentes varrem cidades inteiras no litoral de São Paulo. Deslizamentos destroem comunidades na Serra Gaúcha. Secas devastam o Nordeste por meses. O Brasil convive com desastres naturais que matam, deslocam famílias e custam bilhões - e a Defesa Civil muitas vezes só consegue agir **depois** que o desastre já aconteceu.
 
 O problema não é falta de dados. Satélites como o GOES-16, MODIS e SMAP monitoram o território brasileiro em tempo real, captando precipitação, umidade do solo, temperatura, vegetação e dezenas de outras variáveis. O problema é **transformar esse volume de dados em decisão rápida**.
 
@@ -26,7 +26,7 @@ Este repositório contém o **módulo de Machine Learning** do SatGuard: o class
 
 ## Como funciona
 
-O modelo recebe uma "foto" ambiental de uma região — precipitação acumulada, umidade do solo, inclinação do terreno, distância a rios — e responde com um nível de risco:
+O modelo recebe uma "foto" ambiental de uma região - precipitação acumulada, umidade do solo, inclinação do terreno, distância a rios - e responde com um nível de risco:
 
 | Nível | Significado | Ação |
 |-------|-------------|------|
@@ -38,7 +38,7 @@ O modelo recebe uma "foto" ambiental de uma região — precipitação acumulada
 
 ## Dados Utilizados
 
-**Arquivo:** `satguard_dataset.csv` — 2.500 observações de regiões brasileiras
+**Arquivo:** `satguard_dataset.csv` - 2.500 observações de regiões brasileiras
 
 As variáveis foram selecionadas com base nos indicadores utilizados pelo **INPE**, **Cemaden** e pela **Carta Internacional Space and Major Disasters**:
 
@@ -86,7 +86,7 @@ O dataset cobre os principais biomas brasileiros: **Amazônia, Cerrado, Mata Atl
 | 4 | `dist_rio_km` | 18.4% |
 | 5 | `ndvi` | 7.1% |
 
-> As quatro features dominantes são fisicamente coerentes com os principais fatores de risco de enchentes e deslizamentos no Brasil — o que valida a qualidade do modelo.
+> As quatro features dominantes são fisicamente coerentes com os principais fatores de risco de enchentes e deslizamentos no Brasil - o que valida a qualidade do modelo.
 
 ---
 
