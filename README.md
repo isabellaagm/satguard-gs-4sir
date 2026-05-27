@@ -1,4 +1,4 @@
-# 🛰️ SatGuard
+# SatGuard
 
 ### Plataforma de Monitoramento e Alerta de Desastres Naturais via Satélite
 
