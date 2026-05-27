@@ -1,154 +1,123 @@
-# SatGuard ML
+# 🛰️ SatGuard
 
-## Classificador de Risco de Desastres Naturais via Satélite
+### Plataforma de Monitoramento e Alerta de Desastres Naturais via Satélite
 
 > Cognitive Computing — Global Solution 2026.1 — 4SIR
 
-**Integrantes:** Ana Luiza de Paula Reis - 552363, Isabella Gomes Menezes - 552327, Martin Hilst - 99451
-
-Projeto com base em Ciência de Dados & Machine Learning, seguindo os conteúdos dos Labs 1 a 3 de Aprendizado Supervisionado (Classificação).
-
-> **Algoritmo principal:** Random Forest Classifier
+**RM:** Ana Luiza de Paula Reis - 552363, Isabella Gomes Menezes - 552327, Martin Hilst - 99451
 
 ---
 
-## Sobre o Projeto
+## O Problema
 
-### O Problema
+Todos os anos, enchentes varrem cidades inteiras no litoral de São Paulo. Deslizamentos destroem comunidades na Serra Gaúcha. Secas devastam o Nordeste por meses. O Brasil convive com desastres naturais que matam, deslocam famílias e custam bilhões — e a Defesa Civil muitas vezes só consegue agir **depois** que o desastre já aconteceu.
 
-O Brasil é um dos países mais vulneráveis a desastres naturais do mundo. Enchentes, deslizamentos e secas causam anualmente milhares de mortes e prejuízos bilionários. A detecção e classificação do nível de risco de forma antecipada é um dos maiores desafios da Defesa Civil.
-
-### A Visão
-
-O **SatGuard** é uma plataforma que utiliza dados satelitais e meteorológicos para **classificar automaticamente o nível de risco de desastre natural** em regiões monitoradas, gerando alertas antecipados para autoridades e população.
-
-Este repositório contém o **módulo de Machine Learning** do SatGuard, responsável por classificar o risco a partir de variáveis ambientais e satelitais coletadas por satélites como GOES-16, Landsat, SMAP e MODIS.
+O problema não é falta de dados. Satélites como o GOES-16, MODIS e SMAP monitoram o território brasileiro em tempo real, captando precipitação, umidade do solo, temperatura, vegetação e dezenas de outras variáveis. O problema é **transformar esse volume de dados em decisão rápida**.
 
 ---
 
-## O Pipeline
+## A Solução — SatGuard
 
-Este projeto implementa um pipeline completo de Machine Learning para classificar o **nível de risco de desastre natural** em regiões monitoradas pelo SatGuard:
+O **SatGuard** é uma plataforma de inteligência que processa dados satelitais em tempo real e **classifica automaticamente o nível de risco de desastre natural** em regiões monitoradas — gerando alertas acionáveis para a Defesa Civil, prefeituras e população antes que o desastre ocorra.
 
-| Classe | Descrição |
-|--------|-----------|
-| `0 - Baixo` | Condições estáveis, sem risco imediato |
-| `1 - Médio` | Atenção recomendada, monitoramento intensificado |
-| `2 - Alto` | Alerta crítico, acionar Defesa Civil imediatamente |
-
-O trabalho segue a metodologia apresentada na disciplina de **Cognitive Computing**, aplicando as boas práticas de pré-processamento, treinamento estratificado e avaliação com métricas adequadas para dados multiclasse.
+Este repositório contém o **módulo de Machine Learning** do SatGuard: o classificador de risco treinado com variáveis satelitais e meteorológicas de regiões brasileiras.
 
 ---
 
-## Sobre o Dataset
+## Como funciona
 
-**Arquivo:** `satguard_dataset.csv`
-**Tamanho:** 2.500 observações × 9 variáveis
+O modelo recebe uma "foto" ambiental de uma região — precipitação acumulada, umidade do solo, inclinação do terreno, distância a rios — e responde com um nível de risco:
 
-O dataset representa observações satelitais de regiões monitoradas cobrindo os principais biomas brasileiros (Amazônia, Cerrado, Mata Atlântica, Semiárido e Sul), com variáveis baseadas nos indicadores utilizados pelo **INPE**, **Cemaden** e pela **Carta Internacional Space and Major Disasters**.
+| Nível | Significado | Ação |
+|-------|-------------|------|
+| **Baixo** | Condições estáveis | Monitoramento padrão |
+| **Médio** | Atenção necessária | Equipes em alerta, verificação intensificada |
+| **Alto** | Risco crítico | Acionar Defesa Civil, emitir alerta público |
 
-### Features
+---
 
-| Feature | Descrição | Fonte Satelital |
-|---------|-----------|----------------|
-| `ndvi` | Índice de Vegetação por Diferença Normalizada (0=seco, 1=verde) | Landsat/MODIS |
-| `umidade_solo` | Umidade do solo superficial (%) | SMAP |
-| `precipitacao_72h` | Precipitação acumulada nas últimas 72h (mm) | GOES-16 |
-| `temperatura_max` | Temperatura superficial máxima (°C) | GOES-16 |
-| `inclinacao_terreno` | Ângulo de inclinação do terreno (graus) | SRTM/DEM |
-| `focos_queimadas` | Focos ativos de queimadas na região | AQUA/TERRA MODIS |
-| `dist_rio_km` | Distância ao corpo d'água mais próximo (km) | HydroSHEDS |
-| `historico_eventos` | Desastres registrados nos últimos 5 anos | CEMADEN |
-| `bioma` | Bioma da região (removido no pré-processamento do modelo) | IBGE |
+## Dados Utilizados
+
+**Arquivo:** `satguard_dataset.csv` — 2.500 observações de regiões brasileiras
+
+As variáveis foram selecionadas com base nos indicadores utilizados pelo **INPE**, **Cemaden** e pela **Carta Internacional Space and Major Disasters**:
+
+| Variável | Descrição |
+|----------|-----------|
+| `ndvi` | Índice de vegetação — detecta áreas desmatadas e vulneráveis à erosão |
+| `umidade_solo` | Saturação do solo — solo encharcado aumenta risco de deslizamento |
+| `precipitacao_72h` | Chuva acumulada nas últimas 72h — principal gatilho de enchentes |
+| `temperatura_max` | Temperatura superficial — indicador de seca e estresse hídrico |
+| `inclinacao_terreno` | Declividade — terrenos inclinados são mais vulneráveis a deslizamentos |
+| `focos_queimadas` | Focos ativos — vegetação queimada perde capacidade de absorção |
+| `dist_rio_km` | Proximidade a rios — regiões ribeirinhas têm maior risco de inundação |
+| `historico_eventos` | Desastres registrados nos últimos 5 anos — vulnerabilidade histórica |
+
+O dataset cobre os principais biomas brasileiros: **Amazônia, Cerrado, Mata Atlântica, Semiárido e Sul**, com distribuição de variáveis ajustada às características climáticas de cada região.
 
 ---
 
 ## Resultados
 
-### Dimensões do Dataset
+### Comparação de modelos (Validação Cruzada 5-fold)
 
-| Etapa | Linhas | Colunas |
-|-------|--------|---------|
-| Carregamento original | 2.500 | 10 |
-| Após remoção de 'bioma' | 2.500 | 9 |
-| Valores nulos | 0 | — |
-| Treino | 1.750 | 8 |
-| Teste | 750 | 8 |
+| Modelo | Acurácia |
+|--------|----------|
+| Regressão Logística | ~0.78 |
+| KNN (k=7) | ~0.87 |
+| **Random Forest** | **~0.88** |
 
-### Distribuição das Classes
-
-| Classe | Amostras | % |
-|--------|----------|---|
-| Baixo Risco | ~800 | ~32% |
-| Médio Risco | ~1.100 | ~44% |
-| Alto Risco | ~600 | ~24% |
-
-### Métricas de Desempenho (Random Forest)
+### Desempenho no conjunto de teste
 
 | Classe | Precision | Recall | F1-score |
 |--------|-----------|--------|----------|
-| Baixo Risco | ~0.97 | ~0.96 | ~0.97 |
-| Médio Risco | ~0.95 | ~0.97 | ~0.96 |
-| Alto Risco | ~0.98 | ~0.97 | ~0.97 |
-| **Acurácia geral** | | | **~0.96** |
+| Baixo Risco | 0.874 | 0.759 | 0.812 |
+| Médio Risco | 0.885 | 0.951 | 0.917 |
+| Alto Risco | 0.880 | 0.709 | 0.785 |
+| **Acurácia geral** | | | **0.883** |
 
-### Comparação de Modelos (Validação Cruzada 5-fold)
+### Features mais importantes
 
-| Modelo | Acurácia Média | Desvio Padrão |
-|--------|---------------|---------------|
-| Regressão Logística | ~0.78 | ±0.02 |
-| KNN (k=7) | ~0.87 | ±0.01 |
-| **Random Forest** | **~0.96** | **±0.01** |
+| # | Variável | Importância |
+|---|----------|-------------|
+| 1 | `inclinacao_terreno` | 22.2% |
+| 2 | `umidade_solo` | 18.6% |
+| 3 | `precipitacao_72h` | 18.5% |
+| 4 | `dist_rio_km` | 18.4% |
+| 5 | `ndvi` | 7.1% |
 
-### Top Features Mais Importantes
-
-| # | Feature | Descrição |
-|---|---------|-----------|
-| 1 | `precipitacao_72h` | Principal fator de risco de enchentes |
-| 2 | `inclinacao_terreno` | Determinante para deslizamentos |
-| 3 | `dist_rio_km` | Proximidade a corpos d'água |
-| 4 | `umidade_solo` | Saturação do solo |
-| 5 | `historico_eventos` | Vulnerabilidade histórica |
+> As quatro features dominantes são fisicamente coerentes com os principais fatores de risco de enchentes e deslizamentos no Brasil — o que valida a qualidade do modelo.
 
 ---
 
-## Metodologia
+## Estrutura do Repositório
 
-| Etapa | Descrição | Ferramenta |
-|-------|-----------|------------|
-| 1. EDA | Inspeção: `head()`, `info()`, `describe()`, distribuição de classes | `pandas` |
-| 2. Limpeza | Remoção da coluna categórica `bioma` | `pandas` |
-| 3. Split | Divisão 70/30 estratificada por classe | `train_test_split` |
-| 4. Pipeline | StandardScaler + Classificador (fit apenas no treino) | `sklearn.pipeline` |
-| 5. Validação | Validação cruzada estratificada 5-fold | `StratifiedKFold` |
-| 6. Avaliação | Acurácia, F1, Matriz de Confusão, Importância das Features | `sklearn.metrics` |
-| 7. Inferência | Simulação de alertas em tempo real com 3 cenários regionais | — |
+```
+satguard-gs/
+├── SatGuard_ML.ipynb       # Notebook principal com todo o pipeline
+├── satguard_dataset.csv    # Dataset com 2.500 observações satelitais
+├── requirements.txt        # Dependências do projeto
+└── README.md               # Este arquivo
+```
 
 ---
 
 ## Como Executar
 
-### Google Colab (recomendado)
-
+**Google Colab (recomendado — sem instalação):**
 1. Acesse [colab.research.google.com](https://colab.research.google.com)
-2. Faça upload do arquivo `SatGuard_ML.ipynb`
+2. Faça upload do `SatGuard_ML.ipynb`
 3. Clique em **Ambiente de execução → Executar tudo**
 
-### Local
-
+**Local:**
 ```bash
-# Criar e ativar ambiente virtual
 python -m venv .venv
-.venv\Scripts\activate        # Windows
-# source .venv/bin/activate   # Linux/macOS
+source .venv/bin/activate  # Linux/macOS
+.venv\Scripts\activate     # Windows
 
-# Instalar dependências
 pip install -r requirements.txt
-
-# Abrir o notebook
 jupyter notebook SatGuard_ML.ipynb
 ```
-
 ---
 
 ## Referências
@@ -156,4 +125,3 @@ jupyter notebook SatGuard_ML.ipynb
 - [INPE — Cemaden](http://www.cemaden.gov.br/)
 - [Carta Internacional Space and Major Disasters](https://disasterscharter.org/)
 - [NASA — Earth Observing System](https://earthdata.nasa.gov/)
-- [scikit-learn — RandomForestClassifier](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html)
