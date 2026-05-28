@@ -4,7 +4,7 @@
 
 > Cognitive Computing - Global Solution 2026.1 - 4SIR
 
-**RM:** Ana Luiza de Paula Reis - 552363, Isabella Gomes Menezes - 552327, Martin Hilst - 99451
+**Integrantes:** Ana Luiza de Paula Reis - 552363, Isabella Gomes Menezes - 552327, Martin Hilst - 99451
 
 ---
 
