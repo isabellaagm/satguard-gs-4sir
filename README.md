@@ -16,7 +16,7 @@ O problema não é falta de dados. Satélites como o GOES-16, MODIS e SMAP monit
 
 ---
 
-## A Solução — SatGuard
+## A Solução - SatGuard
 
 O **SatGuard** é uma plataforma de inteligência que processa dados satelitais em tempo real e **classifica automaticamente o nível de risco de desastre natural** em regiões monitoradas — gerando alertas acionáveis para a Defesa Civil, prefeituras e população antes que o desastre ocorra.
 
@@ -104,7 +104,7 @@ satguard-gs/
 
 ## Como Executar
 
-**Google Colab (recomendado — sem instalação):**
+**Google Colab:**
 1. Acesse [colab.research.google.com](https://colab.research.google.com)
 2. Faça upload do `SatGuard_ML.ipynb`
 3. Clique em **Ambiente de execução → Executar tudo**
